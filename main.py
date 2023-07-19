@@ -5,8 +5,7 @@ In production, we would split the accessing of the csv (or database), the differ
 and potential functions into thier own designated file/ folders. Please look at the
 following: https://fastapi.tiangolo.com/tutorial/bigger-applications/ for more information.
 """
-
-
+import pandas as pd
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -41,14 +40,10 @@ FastAPI will then convert this dictionary into json automatically.
 ** In production, we would be querying an actual database, but a csv file is used here to
 keep things simple.
 """
-import pandas as pd
-
-df = pd.read_csv("./cars.csv")
-
-
 # This endpoint refers to "http://<DOMAIN>:<PORT>/data/"
 @app.get("/data/")
 async def get_data():
+    df = pd.read_csv("./cars.csv")
     headers = headers = list(df.columns)
     data = df.to_dict("records")
     return {"headers": headers, "data": data}
