@@ -9,8 +9,21 @@ following: https://fastapi.tiangolo.com/tutorial/bigger-applications/ for more i
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
+# create app
 app = FastAPI()
+
+# accepts requests from the following urls
+origins = ["*"]
+
+# add CORS compliannce middleware to allow access to api from specified origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # This endpoint refers to "http://<DOMAIN>:<PORT>/"
@@ -55,4 +68,4 @@ instead of this alternative. However it's simpler to use this during development
 "python main.py" is much easier to remember.
 """
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", reload=True, port=5000)
