@@ -40,8 +40,10 @@ FastAPI will then convert this dictionary into json automatically.
 ** In production, we would be querying an actual database, but a csv file is used here to
 keep things simple.
 """
+
+
 # This endpoint refers to "http://<DOMAIN>:<PORT>/data/"
-@app.get("/data/")
+@app.get("/data")
 async def get_data():
     df = pd.read_csv("./cars.csv")
     headers = headers = list(df.columns)
